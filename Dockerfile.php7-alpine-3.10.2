@@ -7,7 +7,8 @@ RUN /bin/mv /etc/apache2/httpd.conf /etc/apache2/httpd.conf.origin \
 && /bin/mv /etc/apache2/conf.d/ssl.conf /etc/apache2/conf.d/ssl.conf.origin \
 && /bin/sed -e "s/logs\/ssl_access\.log/\/dev\/stdout/g" -e "s/logs\/ssl_error.log/\/dev\/stderr/g" -e "s/logs\/ssl_request\.log/\/dev\/stdout/g" /etc/apache2/conf.d/ssl.conf.origin > /etc/apache2/conf.d/ssl.conf \
 && /bin/cp -a /etc/apache2/conf.d/languages.conf /etc/apache2/conf.d/languages.conf.origin \
-&& /bin/echo -e "\\nAddDefaultCharset utf-8" >> /etc/apache2/conf.d/languages.conf
+&& /bin/echo -e "\\nAddDefaultCharset utf-8" >> /etc/apache2/conf.d/languages.conf \
+&& /bin/echo -e "<IfModule autoindex>\\n  IndexOptions Charset=UTF-8\\n</IfModule>" >> /etc/apache2/conf.d/autoindex.conf
 
 RUN /bin/mv /var/www/localhost/htdocs/index.html /var/www/localhost/htdocs/default.html
 
